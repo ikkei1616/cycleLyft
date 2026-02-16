@@ -1,0 +1,9 @@
+- (auth)
+    - singIn
+    - singUp
+- plan
+- home
+- workout
+- records
+- fix
+- profile
