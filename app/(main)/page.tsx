@@ -1,11 +1,21 @@
-export default function Home() {
+// app/dashboard/page.tsx (Server Componentの例)
+import { createClient } from '@/lib/supabase/server'
+
+export default async function DashboardPage() {
+  const supabase = await createClient()
+
+  // getUser() を使うのがセキュリティ上のベストプラクティスです
+  const { data: { user }, error } = await supabase.auth.getUser()
+
+  if (error || !user) {
+    // ログインしていない場合はログイン画面へ
+    return <p>ログインしていません</p>
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-          Home
-        </h1>
-      </main>
+    <div>
+      <h1>こんにちは、{user.email}さん！</h1>
+      <p>あなたのユーザーID: {user.id}</p>
     </div>
-  );
+  )
 }

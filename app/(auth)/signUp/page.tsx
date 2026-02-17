@@ -1,11 +1,11 @@
-export default function Home() {
+import { signUp } from './actions'
+
+export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-          singnUp page
-        </h1>
-      </main>
-    </div>
-  );
+    <form action={signUp} className="bg-yellow-400 p-8 rounded-lg shadow-md">
+      <input name="email" type="email" title="メールアドレス" required />
+      <input name="password" type="password" title="パスワード" required />
+      <button>サインアップ</button>
+    </form>
+  )
 }
