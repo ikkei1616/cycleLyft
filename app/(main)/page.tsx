@@ -75,7 +75,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="container max-w-4xl mx-auto py-10 px-4 space-y-6">
+    <div className="container max-w-4xl mx-auto py-8 px-4 flex gap-2 flex-col">
       {/* ロードマッププログレスバー */}
       <Link href="/roadmap">
         <Card className="cursor-pointer hover:bg-muted/50 transition-colors">
@@ -127,22 +127,26 @@ export default async function DashboardPage() {
           </CardHeader>
         </Card>
       )}
-
+      
       {/* アクションボタン */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Link href="/workout">
-          <Button size="lg" className="w-full h-16 text-lg">
-            <Dumbbell className="mr-2 h-6 w-6" />
-            筋トレ開始
-          </Button>
-        </Link>
-        <Link href="/fix">
-          <Button size="lg" variant="outline" className="w-full h-16 text-lg">
-            <Edit className="mr-2 h-6 w-6" />
-            修正
-          </Button>
-        </Link>
-      </div>
+      <Link href="/workout">
+        <Button size="lg" className="w-full h-16 text-lg">
+          <Dumbbell className="mr-2 h-6 w-6" />
+          筋トレ開始
+        </Button>
+      </Link>
+
+      {/* 浮動修正ボタン */}
+      <Link href="/fix">
+        <Button
+          size="lg"
+          variant="outline"
+          className="fixed bottom-24 right-6 h-16 w-16 rounded-full shadow-2xl z-40 bg-white border-black border-2 hover:bg-gray-100"
+          title="修正"
+        >
+          <Edit className="h-6 w-6 text-black" />
+        </Button>
+      </Link>
     </div>
   );
 }
