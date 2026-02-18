@@ -26,5 +26,5 @@ export async function signUp(formData:FormData) {
   }
 
   // 成功時のリダイレクト
-  redirect("/plan")
+  redirect("/form")
 }
