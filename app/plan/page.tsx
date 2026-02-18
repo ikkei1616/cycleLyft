@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Loader2, Target, Dumbbell, Calendar, TrendingUp } from 'lucide-react';
 import type { RoadmapData } from '@/types/roadmap';
 import { createClient } from '@/lib/supabase/client';
@@ -108,41 +109,35 @@ export default function PlanNewPage() {
         </Card>
 
         {/* プランの概要 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <Calendar className="w-8 h-8 text-blue-500" />
+        <Card>
+          <CardContent className="py-6">
+            <div className="flex flex-row items-center justify-around gap-4">
+              <div className="flex items-center gap-2">
+                
                 <div>
-                  <p className="text-sm text-muted-foreground">期間</p>
-                  <p className="text-2xl font-bold">{roadmap.totalWeeks}週間</p>
+                  <p className="text-xs text-muted-foreground">期間</p>
+                  <p className="text-lg font-bold">{roadmap.totalWeeks}週間</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <TrendingUp className="w-8 h-8 text-green-500" />
+              <div className="w-px h-12 bg-border" />
+              <div className="flex items-center gap-2">
+                
                 <div>
-                  <p className="text-sm text-muted-foreground">週の頻度</p>
-                  <p className="text-2xl font-bold">{roadmap.frequencyPerWeek}回/週</p>
+                  <p className="text-xs text-muted-foreground">週の頻度</p>
+                  <p className="text-lg font-bold">{roadmap.frequencyPerWeek}回/週</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <Dumbbell className="w-8 h-8 text-orange-500" />
+              <div className="w-px h-12 bg-border" />
+              <div className="flex items-center gap-2">
+                
                 <div>
-                  <p className="text-sm text-muted-foreground">総トレーニング</p>
-                  <p className="text-2xl font-bold">{roadmap.totalWeeks * roadmap.frequencyPerWeek}回</p>
+                  <p className="text-xs text-muted-foreground">総トレーニング</p>
+                  <p className="text-lg font-bold">{roadmap.totalWeeks * roadmap.frequencyPerWeek}回</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* コーチからの解説 */}
         {roadmap.explanation && (
@@ -158,15 +153,18 @@ export default function PlanNewPage() {
           </Card>
         )}
 
-        {/* 週ごとのメニュー */}
-        <div className="space-y-6">
+        {/* 週ごとのメニュー（アコーディオン形式） */}
+        <Accordion type="multiple" defaultValue={["week-1"]} className="space-y-4">
           {roadmap.roadmap.map((week) => (
-            <Card key={week.week}>
-              <CardHeader className="bg-muted/50">
-                <CardTitle className="text-xl">第{week.week}週</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="space-y-6">
+            <AccordionItem key={week.week} value={`week-${week.week}`} className="border rounded-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <span className="text-xl font-semibold">第{week.week}週</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6">
+                <div className="space-y-6 pt-2">
                   {week.days.map((day) => (
                     <div key={day.dayIndex} className="space-y-3">
                       <h4 className="font-semibold text-lg flex items-center gap-2">
@@ -199,10 +197,10 @@ export default function PlanNewPage() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
 
         {/* アクションボタン */}
         <div className="flex justify-center gap-4 pb-8">
