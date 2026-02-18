@@ -75,7 +75,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="container max-w-4xl mx-auto py-8 px-4 flex gap-2 flex-col">
+    <>
+    <div className="container max-w-4xl mx-auto py-10 px-4 flex gap-8 flex-col">
       {/* ロードマッププログレスバー */}
       <Link href="/roadmap">
         <Card className="cursor-pointer hover:bg-muted/50 transition-colors">
@@ -104,7 +105,7 @@ export default async function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="space-y-2 max-h-[40vh] overflow-y-auto">
               {todayMenu.exercises.map((exercise, idx) => (
                 <div key={idx} className="flex justify-between items-center p-3 border rounded-lg">
                   <div>
@@ -135,18 +136,19 @@ export default async function DashboardPage() {
           筋トレ開始
         </Button>
       </Link>
-
-      {/* 浮動修正ボタン */}
-      <Link href="/fix">
-        <Button
-          size="lg"
-          variant="outline"
-          className="fixed bottom-24 right-6 h-16 w-16 rounded-full shadow-2xl z-40 bg-white border-black border-2 hover:bg-gray-100"
-          title="修正"
-        >
-          <Edit className="h-6 w-6 text-black" />
-        </Button>
-      </Link>
     </div>
+
+    {/* 浮動修正ボタン */}
+    <Link href="/fix">
+      <Button
+        size="lg"
+        variant="outline"
+        className="fixed bottom-24 right-6 h-16 w-16 rounded-full shadow-2xl z-40 bg-white border-black border-2 hover:bg-gray-100"
+        title="修正"
+      >
+        <Edit className="h-6 w-6 text-black" />
+      </Button>
+    </Link>
+    </>
   );
 }
